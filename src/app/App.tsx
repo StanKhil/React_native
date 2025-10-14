@@ -9,12 +9,14 @@ import Itro from '../pages/intro/Intro';
 import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Cart from '../pages/cart/Cart';
+import { useState } from 'react';
+import ModalView from './ui/ModalView';
 
 
 export default function App() {
-
-  const showModal = (data : ModalData) => {
-    console.log(data);
+  const [modalData, setModalData] = useState<ModalData|null>(null);
+  const showModal = (data : ModalData|null) => {
+    setModalData(data);
   }
   return (
     <AppContext.Provider value={{showModal}}>
@@ -31,7 +33,7 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ModalView data={modalData}/>
     </AppContext.Provider>
   )
 }
-

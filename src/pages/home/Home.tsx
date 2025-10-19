@@ -3,10 +3,12 @@ import {Text, View} from 'react-native-web'
 import {StyleSheet} from 'react-native'
 import AppContext from '../../features/context/AppContext';
 import {ProjButton, ProjButtonTypes} from '../../features/ui/ProjeButton';
+import ProductGroupsWidget from '../../widgets/product_groups/ProductGroupsWidgets';
 
 
 export default function Home() {
   const {showModal} = useContext(AppContext);
+  
 
   const onShowPress = () => {
     showModal({
@@ -34,6 +36,7 @@ export default function Home() {
     
   return (
     <View style={styles.root}>
+      <ProductGroupsWidget />
       <Text>Hello</Text>
       <ProjButton action={onShowPress} title='Show Modal' type={ProjButtonTypes.primary} style={{maxWidth: 150, paddingVertical: 10}}/>
       <ProjButton action={() => showModal({message:"lorem"})} title='Show Modal' type={ProjButtonTypes.secondary} style={{maxWidth: 150, paddingVertical: 10}}/>

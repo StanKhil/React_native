@@ -11,6 +11,8 @@ import Register from '../pages/register/Register';
 import Cart from '../pages/cart/Cart';
 import { useState } from 'react';
 import ModalView from './ui/ModalView';
+import Group from '../pages/group/Group';
+import Product from '../pages/product/Product';
 
 
 export default function App() {
@@ -30,6 +32,8 @@ export default function App() {
             <Route path="login" element={<Login/>}/>
             <Route path="register" element={<Register/>}/>
             <Route path="cart" element={<Cart/>}/>
+            <Route path="group/:slug" element={<Group />} />
+            <Route path="product/:slug" element={<Product />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -7,7 +7,7 @@ import ProductGroupsWidget from '../../widgets/product_groups/ProductGroupsWidge
 
 
 export default function Home() {
-  const {showModal} = useContext(AppContext);
+  const {showModal, enqueueToast} = useContext(AppContext);
   
 
   const onShowPress = () => {
@@ -41,6 +41,7 @@ export default function Home() {
       <ProjButton action={onShowPress} title='Show Modal' type={ProjButtonTypes.primary} style={{maxWidth: 150, paddingVertical: 10}}/>
       <ProjButton action={() => showModal({message:"lorem"})} title='Show Modal' type={ProjButtonTypes.secondary} style={{maxWidth: 150, paddingVertical: 10}}/>
       <ProjButton action={onShowPress} title='Show Modal' type={ProjButtonTypes.success} style={{maxWidth: 150, paddingVertical: 10}}/>
+      <ProjButton action={() => enqueueToast({message : Math.random().toFixed(3)})} title='Show Toast' type={ProjButtonTypes.success} style={{maxWidth: 150, paddingVertical: 10}}/>
     </View>
   )
 }

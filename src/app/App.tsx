@@ -13,15 +13,40 @@ import { useState } from 'react';
 import ModalView from './ui/ModalView';
 import Group from '../pages/group/Group';
 import Product from '../pages/product/Product';
+import Toast from './ui/Toast';
+import type { ToastData } from '../features/types/ToastData';
+import Broker from './ui/Broker';
+import type { BrokerData } from '../features/types/BrokerData';
 
 
 export default function App() {
   const [modalData, setModalData] = useState<ModalData|null>(null);
+  const [shownToastData, setShownToastData] = useState<ToastData|null>(null);
+
   const showModal = (data : ModalData|null) => {
     setModalData(data);
-  }
+  };
+
+  const showToast = (data: ToastData|null) => {
+    setShownToastData(data);
+    setTimeout(() => setShownToastData(null), 2000)
+  };
+
+  const enqueueToast = (data: ToastData) => {
+    const brokerData: BrokerData = {
+      type: "toast",
+      name: "Toast: " + data.message,
+      toastData: data,
+      action: () => showToast(data),
+      callback: (task, err) => console.log("Toast done:", task, err),
+    };
+
+    Broker.instance.enqueueTask(brokerData);
+  };
+
+
   return (
-    <AppContext.Provider value={{showModal}}>
+    <AppContext.Provider value={{showModal, enqueueToast}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout/>}>
@@ -38,6 +63,7 @@ export default function App() {
         </Routes>
       </BrowserRouter>
       <ModalView data={modalData}/>
+      <Toast data={shownToastData}/>
     </AppContext.Provider>
   )
 }
